@@ -11,10 +11,16 @@ const postagemSchema = mongoose.Schema({
     linguagem: { type: String },
     codigo: { type: String },
     cor: { type: String },
-    curtidas_id_usuario: [String],
-    mensagem: [mongoose.Schema.Types.ObjectId],
+    curtidas_id_usuario: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "usuarios"
+    }],
+    mensagem: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "mensagens"
+    }],
     /* colocar os objetos msg e like */
-});
+}, { versionKey: false });
 
 const postagens = mongoose.model("postagens", postagemSchema)
 

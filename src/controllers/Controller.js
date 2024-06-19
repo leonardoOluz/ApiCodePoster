@@ -4,6 +4,16 @@ class Controller {
         this.service = nameService
     }
 
+    async getOneDateId(req, res, next) {
+        const { id } = req.params;
+        try {
+            const resultSearched = await this.service.getOneId(id)
+            return res.status(200).json({ message: "dados por id ", resultSearched })
+        } catch (error) {
+            return res.status(500).json({ message: error.message })
+        }
+    }
+
     async getAllDate(req, res, next) {
         try {
             const listRegister = await this.service.getAllDate()
@@ -34,13 +44,13 @@ class Controller {
         }
     }
 
-    async dropDate(req, res, next){
+    async dropDate(req, res, next) {
         const id = req.params.id;
         try {
             const deletedDate = await this.service.dropDate(id);
-            return res.status(200).json({message: "deletado com sucesso", deletedDate})
+            return res.status(200).json({ message: "deletado com sucesso", deletedDate })
         } catch (error) {
-            return res.status(500).json({message: error});
+            return res.status(500).json({ message: error });
         }
     }
 }

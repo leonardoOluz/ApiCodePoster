@@ -1,16 +1,17 @@
+/* eslint-disable no-undef */
 import jwt from "jsonwebtoken";
 const secret = process.env.SECRET;
 
-function criarToken(dados) {
-    const dadosToken = jwt.sign(dados, secret, { expiresIn: '1h' })
+function createToken(payload) {
+    const dadosToken = jwt.sign(payload, secret, { expiresIn: "2h" });
     return dadosToken;
 }
-function verificarToken(dados) {
+function checkToken(dados) {
     const tokenDescriptografado = jwt.verify(dados, secret)
     return tokenDescriptografado;
 }
 
-export default {
-    criarToken,
-    verificarToken
+export {
+    createToken,
+    checkToken
 } 

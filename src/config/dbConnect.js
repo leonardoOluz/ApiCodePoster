@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import mongoose from "mongoose";
 const user = process.env.DB_USER
 const password = process.env.DB_PASS

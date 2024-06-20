@@ -4,14 +4,19 @@ class Services {
     constructor(nomeModel) {
         this.model = nomeModel
     }
+    
+    async getAllDate() {
+        const response = await dataBase[this.model].find();
+        return response;
+    }
 
     async getOneId(id) {
         const response = await dataBase[this.model].findById(id).exec();
         return response;
     }
 
-    async getAllDate() {
-        const response = await dataBase[this.model].find();
+    async getOne(dtn){
+        const response = await dataBase[this.model].findOne(dtn).exec();
         return response;
     }
 

@@ -11,7 +11,7 @@ conexao.on('error', (error) => {
 });
 
 conexao.once('open', () => {
-    console.log('conectado com sucesso !');
+    console.log('conectado com banco mongoDB !');
 })
 
 

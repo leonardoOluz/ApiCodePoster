@@ -4,9 +4,9 @@ const linguagem = new LinguagemService();
 
 
 class LinguagemController extends Controller {
-    constructor(){
-        super(linguagem)
-    }
+  constructor(){
+    super(linguagem);
+  }
 };
 
 export default LinguagemController;

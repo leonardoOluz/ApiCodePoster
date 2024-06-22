@@ -4,8 +4,8 @@ import { postagens } from "./Postagem.js";
 import { linguagens } from "./Linguagem.js";
 
 export default {
-    usuarios,
-    mensagens,
-    postagens,
-    linguagens
-}
+  usuarios,
+  mensagens,
+  postagens,
+  linguagens
+};

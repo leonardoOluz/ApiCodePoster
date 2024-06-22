@@ -4,9 +4,9 @@ const usuario = new UsuarioService();
 
 
 class UsuarioController extends Controller {
-    constructor(){
-        super(usuario)
-    }
+  constructor(){
+    super(usuario);
+  }
 };
 
 export default UsuarioController;

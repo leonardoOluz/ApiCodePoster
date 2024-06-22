@@ -7,13 +7,13 @@ import auth from "./authRoutes.js";
 import checkToken from "../middlewares/checkToken.js";
 
 export default app => {
-    app.use(
-        express.json(),
-        auth,
-        checkToken,
-        usuario,
-        linguagem,
-        postagem,
-        mensagem
-    )
-}
+  app.use(
+    express.json(),
+    auth,
+    checkToken,
+    usuario,
+    linguagem,
+    postagem,
+    mensagem
+  );
+};

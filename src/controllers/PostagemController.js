@@ -3,9 +3,9 @@ import PostagemService from "../service/PostagemService.js";
 const postagem = new PostagemService();
 
 class PostagemController extends Controller {
-    constructor() {
-        super(postagem)
-    }
+  constructor() {
+    super(postagem);
+  }
 };
 
 export default PostagemController;

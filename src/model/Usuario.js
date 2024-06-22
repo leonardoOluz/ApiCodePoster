@@ -8,6 +8,7 @@ const usuarioSchema = mongoose.Schema({
   },
   apelido: {
     type: String,
+    unique: true,
     required: [true, `É obrigatorio`]
   },
   foto: {

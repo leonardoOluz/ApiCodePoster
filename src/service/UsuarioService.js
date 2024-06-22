@@ -1,6 +1,7 @@
 import Services from "./services.js";
 import { createSalHash, decodeSalHash } from "../utils/salHash.js";
 import { createToken } from "../utils/authUtils.js";
+import ErrorIncorrectRequest from "../errors/ErrorIncorrectRequest.js";
 
 class UsuarioService extends Services {
   constructor() {
@@ -36,10 +37,10 @@ class UsuarioService extends Services {
         /* se a senha conferir criar token */
         return createToken({ id: userChecked._id, usuario: userChecked.nome });
       } 
-      throw new Error(`Senha errada !`);
+      throw new ErrorIncorrectRequest('Verifique sua senha de acesso !');
             
     } else {
-      throw new Error(`Verifique seu email ou faça um cadastro.`);
+      throw new ErrorIncorrectRequest('Verifique seu email ou faça um cadastro.');
     }
   };
 }

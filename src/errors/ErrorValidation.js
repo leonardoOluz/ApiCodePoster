@@ -8,7 +8,7 @@ class ErroValidation extends ErroBase {
     super(
       Object.values(error.errors).length > 1 ?
         `Verifique as validações: ${typesErrors}` :
-        `verifique a validação: ${typesErrors}`,
+        `Verifique o campo ${typesErrors}`,
       400
     );
   }

@@ -3,11 +3,13 @@ import express from 'express';
 import routes from './routes/index.js';
 import dbConnect from './config/dbConnect.js';
 import errorValidations from './middlewares/errorValidations.js';
+import errorNotFound404 from './middlewares/errorNotFound404.js';
 
 const app = express();
 
 const conexao = await dbConnect();
 routes(app);
+app.use(errorNotFound404);
 app.use(errorValidations);
 
 conexao.on('error', (error) => {

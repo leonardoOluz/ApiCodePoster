@@ -2,7 +2,10 @@ import mongoose from "mongoose";
 
 const linguagemSchema = mongoose.Schema({
   id: { type: mongoose.Schema.Types.ObjectId },
-  linguagem: { type: String },
+  linguagem: {
+    type: String,
+    required: [true, "O campo linguagem é obrigatorio!"]
+  },
   texto: { type: String }
 }, { versionKey: false });
 

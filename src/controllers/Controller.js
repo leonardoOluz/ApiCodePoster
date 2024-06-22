@@ -1,4 +1,7 @@
- 
+import ErrorIncorrectRequest from "../errors/ErrorIncorrectRequest.js";
+
+
+
 class Controller {
   constructor(nameService) {
     this.service = nameService;
@@ -48,9 +51,10 @@ class Controller {
     const id = req.params.id;
     try {
       const deletedDate = await this.service.dropDate(id);
+      if (!deletedDate)return next(new ErrorIncorrectRequest());
       return res.status(200).json({ message: "deletado com sucesso", deletedDate });
     } catch (error) {
-      return next(error);;
+      return next(error);
     }
   }
 }

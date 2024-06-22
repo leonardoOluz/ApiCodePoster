@@ -12,7 +12,10 @@ const mensagemSchema = mongoose.Schema({
     ref: "usuarios",
     required: [true, "O usuario é obrigatório"]
   },
-  texto: { type: String }
+  texto: { 
+    type: String,
+    required: [true, "Campo texto é obrigatório!"]
+  }
 }, { versionKey: false });
 
 const mensagens = mongoose.model("mensagens", mensagemSchema);

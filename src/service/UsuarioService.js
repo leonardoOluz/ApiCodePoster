@@ -44,6 +44,19 @@ class UsuarioService extends Services {
       throw new ErrorIncorrectRequest('Verifique seu email ou faça um cadastro.');
     }
   };
+
+  async getAllUser() {
+    const returned = "nome apelido foto email";
+    const result = await super.getAllDate(returned);
+    return result;
+  }
+
+  async getOneById(id) {
+    const returned = "nome apelido foto email";
+    const result = await super.getOneId(id, returned);
+    return result;
+  }
+
 }
 
 export default UsuarioService;

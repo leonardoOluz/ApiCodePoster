@@ -4,18 +4,18 @@ class Services {
   constructor(nomeModel) {
     this.model = nomeModel;
   }
-    
-  async getAllDate() {
-    const response = await dataBase[this.model].find();
+
+  async getAllDate(returned = "") {
+    const response = await dataBase[this.model].find({}, returned).exec();
     return response;
   }
 
-  async getOneId(id) {
-    const response = await dataBase[this.model].findById(id).exec();
+  async getOneId(id, returned = "") {
+    const response = await dataBase[this.model].findById(id, returned).exec();
     return response;
   }
 
-  async getOne(dtn){
+  async getOne(dtn) {
     const response = await dataBase[this.model].findOne(dtn).exec();
     return response;
   }
@@ -26,7 +26,8 @@ class Services {
   }
 
   async updateDate(id, dtn) {
-    const updatedDate = await dataBase[this.model].findByIdAndUpdate(id, { $set: dtn });
+    const opts = { runValidators: true };
+    const updatedDate = await dataBase[this.model].findByIdAndUpdate(id, { $set: dtn }, opts);
     return updatedDate;
   }
 

@@ -41,7 +41,10 @@ class Controller {
     const id = req.params.id;
     try {
       const uptdatedDate = await this.service.updateDate(id, dtn);
-      return res.status(200).json(uptdatedDate);
+      if (!uptdatedDate) return next(
+        new ErrorIncorrectRequest("Os dados fornecido não foram encontrado ou foram excluidos!")
+      );
+      return res.status(200).json({ message: `id: ${id} foi atualizado com sucesso` });
     } catch (error) {
       return next(error);
     }

@@ -17,7 +17,7 @@ class UsuarioService extends Services {
     }
     const [sal, senhaHash] = createSalHash(senha).split(':');
 
-    const created = await super.createDate({
+    await super.createDate({
       nome,
       apelido,
       foto,
@@ -25,7 +25,7 @@ class UsuarioService extends Services {
       hash: senhaHash,
       sal: sal,
     });
-    return { message: "Usuario criado com sucesso !", created };
+    return { message: "Usuario criado com sucesso !"};
   };
 
   async login(senha, email) {

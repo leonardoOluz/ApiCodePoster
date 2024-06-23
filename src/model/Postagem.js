@@ -6,27 +6,27 @@ const postagemSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     cast: 'Precisa ser um ObjectId',
     ref: "usuarios",
-    required: [true, "Campo obrigatório"]
+    required: [true, "É obrigatório"]
   },
   titulo: { 
     type: String,
-    required: [true, "Campo obrigatório"]
+    required: [true, "É obrigatório"]
   },
   descricao: { 
     type: String,
-    required: [true, "Campo obrigatório"]
+    required: [true, "É obrigatório"]
   },
   linguagem: { 
     type: String,
-    required: [true, "Campo obrigatório"]
+    required: [true, "É obrigatório"]
   },
   codigo: { 
     type: String,
-    required: [true, "Campo obrigatório"]
+    required: [true, "É obrigatório"]
   },
   cor: { 
     type: String,
-    required: [true, "Campo obrigatório"]
+    required: [true, "É obrigatório"]
   },
   curtidas_id_usuario: [{
     type: mongoose.Schema.Types.ObjectId,

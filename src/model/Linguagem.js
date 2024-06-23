@@ -4,7 +4,7 @@ const linguagemSchema = mongoose.Schema({
   id: { type: mongoose.Schema.Types.ObjectId },
   linguagem: {
     type: String,
-    required: [true, "O campo linguagem é obrigatorio!"]
+    required: [true, "É obrigatório"]
   },
   texto: { type: String }
 }, { versionKey: false });

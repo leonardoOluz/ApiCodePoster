@@ -5,16 +5,16 @@ const mensagemSchema = mongoose.Schema({
   id_postagem: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "postagens",
-    required: [true, "Necessário indicar a postagem"]
+    required: [true, "É obrigatório"]
   },
   id_usuario: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "usuarios",
-    required: [true, "O usuario é obrigatório"]
+    required: [true, "É obrigatório"]
   },
   texto: { 
     type: String,
-    required: [true, "Campo texto é obrigatório!"]
+    required: [true, "É obrigatório"]
   }
 }, { versionKey: false });
 

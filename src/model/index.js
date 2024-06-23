@@ -1,3 +1,4 @@
+import "./validationGlobal.js";
 import { usuarios } from "./Usuario.js";
 import { mensagens } from "./Mensagem.js";
 import { postagens } from "./Postagem.js";

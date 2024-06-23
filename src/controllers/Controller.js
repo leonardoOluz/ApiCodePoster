@@ -51,8 +51,10 @@ class Controller {
     const id = req.params.id;
     try {
       const deletedDate = await this.service.dropDate(id);
-      if (!deletedDate)return next(new ErrorIncorrectRequest());
-      return res.status(200).json({ message: "deletado com sucesso", deletedDate });
+      if (!deletedDate) return next(
+        new ErrorIncorrectRequest("Os dados fornecido não foram encontrado ou foram excluidos!")
+      );
+      return res.status(200).json({ message: `id: ${id} foi deletado com sucesso` });
     } catch (error) {
       return next(error);
     }

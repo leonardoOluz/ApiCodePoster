@@ -2,6 +2,7 @@ import Services from "./services.js";
 import { createSalHash, decodeSalHash } from "../utils/salHash.js";
 import { createToken } from "../utils/authUtils.js";
 import ErrorIncorrectRequest from "../errors/ErrorIncorrectRequest.js";
+import ErroBase from "../errors/ErrorBase.js";
 
 class UsuarioService extends Services {
   constructor() {
@@ -10,7 +11,12 @@ class UsuarioService extends Services {
 
   async signUp(dtn) {
     const { nome, apelido, foto, email, senha } = dtn;
+
+    if (!senha) {
+      throw new ErroBase("Verifique o campo senha", 400);
+    }
     const [sal, senhaHash] = createSalHash(senha).split(':');
+
     const created = await super.createDate({
       nome,
       apelido,
@@ -19,12 +25,7 @@ class UsuarioService extends Services {
       hash: senhaHash,
       sal: sal,
     });
-
-    if (created) {
-      return { message: "Usuario criado com sucesso !" };
-    } 
-    throw new Error(`Email existente!`);
-        
+    return { message: "Usuario criado com sucesso !", created };
   };
 
   async login(senha, email) {
@@ -36,9 +37,9 @@ class UsuarioService extends Services {
       if (await decodeSalHash(senha, userChecked.hash, userChecked.sal)) {
         /* se a senha conferir criar token */
         return createToken({ id: userChecked._id, usuario: userChecked.nome });
-      } 
+      }
       throw new ErrorIncorrectRequest('Verifique sua senha de acesso !');
-            
+
     } else {
       throw new ErrorIncorrectRequest('Verifique seu email ou faça um cadastro.');
     }

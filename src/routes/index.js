@@ -5,6 +5,7 @@ import postagem from "./postagensRoutes.js";
 import mensagem from "./mensagensRoutes.js";
 import auth from "./authRoutes.js";
 import checkToken from "../middlewares/checkToken.js";
+import errorNotFound404 from "../middlewares/errorNotFound404.js";
 
 export default app => {
   app.use(
@@ -14,6 +15,7 @@ export default app => {
     usuario,
     linguagem,
     postagem,
-    mensagem
+    mensagem,
+    errorNotFound404
   );
 };

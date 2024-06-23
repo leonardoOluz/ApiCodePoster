@@ -11,6 +11,9 @@ class Controller {
     const { id } = req.params;
     try {
       const resultSearched = await this.service.getOneId(id);
+      if (!resultSearched) return next(
+        new ErrorIncorrectRequest("Os dados fornecido não foram encontrado ou foram excluidos!")
+      );
       return res.status(200).json({ message: "dados por id ", resultSearched });
     } catch (error) {
       return next(error);

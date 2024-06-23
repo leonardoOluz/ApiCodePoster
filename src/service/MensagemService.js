@@ -9,10 +9,13 @@ class MensagemService extends Services {
 
   async checkDateMessagemValidate(dtn) {
     const resultUser = await this.usuarioService.getOneId({ _id: dtn.id_usuario });
-    const resultPost = await this.postagemService.getOneId({ _id: dtn.id_postagem });
+    if (!resultUser) {
+      throw new Error("Não foi possivel identificar o usuario, verifique o Id ! ");
+    }
 
-    if (!resultPost || !resultUser) {
-      throw new Error("Verifique a existencia dos id ");
+    const resultPost = await this.postagemService.getOneId({ _id: dtn.id_postagem });
+    if (!resultPost) {
+      throw new Error("Não foi possivel identificar a postagem, verifique o Id ! ");
     };
 
     let msg = resultPost.mensagem;

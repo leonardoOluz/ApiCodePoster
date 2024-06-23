@@ -1,5 +1,6 @@
 import Controller from "./Controller.js";
 import UsuarioService from "../service/UsuarioService.js";
+import ErrorIncorrectRequest from "../errors/ErrorIncorrectRequest.js";
 const usuario = new UsuarioService();
 
 
@@ -21,6 +22,9 @@ class UsuarioController extends Controller {
     const {id} = req.params;
     try {
       const result = await usuario.getOneById(id);
+      if(!result) return next(
+        new ErrorIncorrectRequest("Os dados fornecido não foram encontrado ou foram excluidos!")
+      );  
       return res.status(200).json(result);
     } catch (error) {
       return next(error);

@@ -8,23 +8,23 @@ const postagemSchema = mongoose.Schema({
     ref: "usuarios",
     required: [true, "É obrigatório"]
   },
-  titulo: { 
+  titulo: {
     type: String,
     required: [true, "É obrigatório"]
   },
-  descricao: { 
+  descricao: {
     type: String,
     required: [true, "É obrigatório"]
   },
-  linguagem: { 
+  linguagem: {
     type: String,
     required: [true, "É obrigatório"]
   },
-  codigo: { 
+  codigo: {
     type: String,
     required: [true, "É obrigatório"]
   },
-  cor: { 
+  cor: {
     type: String,
     required: [true, "É obrigatório"]
   },

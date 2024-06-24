@@ -1,5 +1,5 @@
 class ErroBase extends Error {
-  constructor(message = "Erro interno de servidor", status = 500) {
+  constructor(message = 'Erro interno de servidor', status = 500) {
     super();
     this.status = status;
     this.message = message;
@@ -9,7 +9,7 @@ class ErroBase extends Error {
     return res.status(this.status)
       .json({
         message: this.message,
-        status: this.status
+        status: this.status,
       });
   }
 }

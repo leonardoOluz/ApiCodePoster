@@ -1,5 +1,6 @@
-import { Router } from "express";
-import MensagemController from "../controllers/MensagemController.js";
+/* eslint-disable import/extensions */
+import { Router } from 'express';
+import MensagemController from '../controllers/MensagemController.js';
 
 const mensagem = new MensagemController();
 const router = Router();

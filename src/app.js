@@ -1,4 +1,6 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-undef */
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 import express from 'express';
 import routes from './routes/index.js';
 import dbConnect from './config/dbConnect.js';
@@ -12,11 +14,13 @@ routes(app);
 app.use(errorValidations);
 
 conexao.on('error', (error) => {
-  console.log('Erro de conexão', error);
+  /* erro de conexão */
+  console.error('Erro de conexão', error);
 });
 
 conexao.once('open', () => {
-  console.log('conectado com banco mongoDB !');
+  /* Conexão com banco de dados ok */
+  console.warn('conectado com banco mongoDB !');
 });
 
 export default app;

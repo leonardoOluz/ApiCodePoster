@@ -1,5 +1,6 @@
-import { Router } from "express";
-import LinguagemController from "../controllers/LinguagemController.js";
+/* eslint-disable import/extensions */
+import { Router } from 'express';
+import LinguagemController from '../controllers/LinguagemController.js';
 
 const linguagem = new LinguagemController();
 const router = Router();

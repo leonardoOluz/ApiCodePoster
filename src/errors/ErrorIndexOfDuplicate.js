@@ -1,4 +1,5 @@
-import ErroBase from "./ErrorBase.js";
+/* eslint-disable import/extensions */
+import ErroBase from './ErrorBase.js';
 
 class ErrorIndexOfDuplicate extends ErroBase {
   constructor(error) {
@@ -6,6 +7,6 @@ class ErrorIndexOfDuplicate extends ErroBase {
     const value = Object.keys(checkedDuplicateKey[0].keyValue);
     super(`Este ${value} já está sendo utiizado, escolha outro ${value}`, 400);
   }
-};
+}
 
 export default ErrorIndexOfDuplicate;

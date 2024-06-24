@@ -1,9 +1,10 @@
 /* eslint-disable no-undef */
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
+
 const secret = process.env.SECRET;
 
 function createToken(payload) {
-  const dadosToken = jwt.sign(payload, secret, { expiresIn: "2h" });
+  const dadosToken = jwt.sign(payload, secret, { expiresIn: '2h' });
   return dadosToken;
 }
 function checkToken(dados) {
@@ -13,5 +14,5 @@ function checkToken(dados) {
 
 export {
   createToken,
-  checkToken
-}; 
+  checkToken,
+};

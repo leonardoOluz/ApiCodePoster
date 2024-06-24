@@ -1,8 +1,9 @@
-import ErroBase from "./ErrorBase.js";
+/* eslint-disable import/extensions */
+import ErroBase from './ErrorBase.js';
 
 class ErrorIncorrectRequest extends ErroBase {
-  constructor(mensagem = "Um ou mais dados fornecidos estão incorretos"){
-    super(mensagem, 400);        
+  constructor(mensagem = 'Um ou mais dados fornecidos estão incorretos') {
+    super(mensagem, 400);
   }
 }
 

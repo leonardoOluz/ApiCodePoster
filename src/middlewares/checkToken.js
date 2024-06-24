@@ -1,6 +1,8 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-undef */
-import pkg from "jsonwebtoken";
-import UsuarioService from "../service/UsuarioService.js";
+import pkg from 'jsonwebtoken';
+import UsuarioService from '../service/UsuarioService.js';
+
 const { verify, decode } = pkg;
 
 const usuarioService = new UsuarioService();

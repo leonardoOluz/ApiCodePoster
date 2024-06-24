@@ -1,6 +1,5 @@
-import ErrorIncorrectRequest from "../errors/ErrorIncorrectRequest.js";
-
-
+/* eslint-disable import/extensions */
+import ErrorIncorrectRequest from '../errors/ErrorIncorrectRequest.js';
 
 class Controller {
   constructor(nameService) {
@@ -11,10 +10,12 @@ class Controller {
     const { id } = req.params;
     try {
       const resultSearched = await this.service.getOneId(id);
-      if (!resultSearched) return next(
-        new ErrorIncorrectRequest("Os dados fornecido não foram encontrado ou foram excluidos!")
-      );
-      return res.status(200).json({ message: "dados por id ", resultSearched });
+      if (!resultSearched) {
+        return next(
+          new ErrorIncorrectRequest('Os dados fornecido não foram encontrado ou foram excluidos!'),
+        );
+      }
+      return res.status(200).json({ message: 'dados por id ', resultSearched });
     } catch (error) {
       return next(error);
     }
@@ -41,12 +42,14 @@ class Controller {
 
   async updateDate(req, res, next) {
     const dtn = req.body;
-    const id = req.params.id;
+    const { id } = req.params;
     try {
       const uptdatedDate = await this.service.updateDate(id, dtn);
-      if (!uptdatedDate) return next(
-        new ErrorIncorrectRequest("Os dados fornecido não foram encontrado ou foram excluidos!")
-      );
+      if (!uptdatedDate) {
+        return next(
+          new ErrorIncorrectRequest('Os dados fornecido não foram encontrado ou foram excluidos!'),
+        );
+      }
       return res.status(200).json({ message: `id: ${id} foi atualizado com sucesso` });
     } catch (error) {
       return next(error);
@@ -54,12 +57,14 @@ class Controller {
   }
 
   async dropDate(req, res, next) {
-    const id = req.params.id;
+    const { id } = req.params;
     try {
       const deletedDate = await this.service.dropDate(id);
-      if (!deletedDate) return next(
-        new ErrorIncorrectRequest("Os dados fornecido não foram encontrado ou foram excluidos!")
-      );
+      if (!deletedDate) {
+        return next(
+          new ErrorIncorrectRequest('Os dados fornecido não foram encontrado ou foram excluidos!'),
+        );
+      }
       return res.status(200).json({ message: `id: ${id} foi deletado com sucesso` });
     } catch (error) {
       return next(error);

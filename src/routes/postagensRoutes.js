@@ -1,5 +1,6 @@
-import { Router } from "express";
-import PostagemController from "../controllers/PostagemController.js";
+/* eslint-disable import/extensions */
+import { Router } from 'express';
+import PostagemController from '../controllers/PostagemController.js';
 
 const postagem = new PostagemController();
 const router = Router();

@@ -1,8 +1,9 @@
-import Services from "./services.js";
+/* eslint-disable import/extensions */
+import Services from './services.js';
 
 class PostagemService extends Services {
   constructor() {
-    super("postagens");
+    super('postagens');
   }
 }
 

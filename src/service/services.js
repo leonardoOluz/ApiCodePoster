@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import dataBase from '../model/index.js';
 
 class Services {
@@ -5,12 +6,12 @@ class Services {
     this.model = nomeModel;
   }
 
-  async getAllDate(returned = "") {
+  async getAllDate(returned = '') {
     const response = await dataBase[this.model].find({}, returned).exec();
     return response;
   }
 
-  async getOneId(id, returned = "") {
+  async getOneId(id, returned = '') {
     const response = await dataBase[this.model].findById(id, returned).exec();
     return response;
   }

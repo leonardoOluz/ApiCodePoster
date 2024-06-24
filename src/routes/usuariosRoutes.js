@@ -1,5 +1,6 @@
-import { Router } from "express";
-import UsuarioController from "../controllers/UsuarioController.js";
+/* eslint-disable import/extensions */
+import { Router } from 'express';
+import UsuarioController from '../controllers/UsuarioController.js';
 
 const usuario = new UsuarioController();
 const router = Router();

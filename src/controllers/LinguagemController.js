@@ -2,11 +2,12 @@
 import Controller from './Controller.js';
 import LinguagemService from '../service/LinguagemService.js';
 
-const linguagem = new LinguagemService();
+const linguagemService = new LinguagemService();
 
 class LinguagemController extends Controller {
   constructor() {
-    super(linguagem);
+    super(linguagemService);
+    this.linguagem = linguagemService;
   }
 }
 

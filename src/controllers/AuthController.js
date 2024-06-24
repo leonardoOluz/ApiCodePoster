@@ -2,11 +2,12 @@
 import Controller from './Controller.js';
 import UsuarioService from '../service/UsuarioService.js';
 
-const usuario = new UsuarioService();
+const usuarioService = new UsuarioService();
 
 class AuthController extends Controller {
   constructor() {
-    super(usuario);
+    super(usuarioService);
+    this.usuario = usuarioService;
   }
 
   async signUp(req, res, next) {

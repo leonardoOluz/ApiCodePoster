@@ -3,11 +3,12 @@ import Controller from './Controller.js';
 import UsuarioService from '../service/UsuarioService.js';
 import ErrorIncorrectRequest from '../errors/ErrorIncorrectRequest.js';
 
-const usuario = new UsuarioService();
+const usuarioService = new UsuarioService();
 
 class UsuarioController extends Controller {
   constructor() {
-    super(usuario);
+    super(usuarioService);
+    this.usuario = usuarioService;
   }
 
   async getAllUser(req, res, next) {

@@ -2,11 +2,12 @@
 import Controller from './Controller.js';
 import MensagemService from '../service/MensagemService.js';
 
-const mensagem = new MensagemService();
+const mensagemService = new MensagemService();
 
 class MensagemController extends Controller {
   constructor() {
-    super(mensagem);
+    super(mensagemService);
+    this.mensagem = mensagemService;
   }
 
   async checkDateMessageSave(req, res, next) {

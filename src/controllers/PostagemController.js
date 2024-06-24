@@ -2,11 +2,12 @@
 import Controller from './Controller.js';
 import PostagemService from '../service/PostagemService.js';
 
-const postagem = new PostagemService();
+const postagemService = new PostagemService();
 
 class PostagemController extends Controller {
   constructor() {
-    super(postagem);
+    super(postagemService);
+    this.postagem = postagemService;
   }
 }
 

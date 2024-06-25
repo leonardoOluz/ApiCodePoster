@@ -1,7 +1,8 @@
 name: testes-unitarios
 on:
-   push:
-    branches-ignore:
+  pull_request:
+    types: [ opened, synchronize ]
+    branches:
       - main
 jobs:
   test:

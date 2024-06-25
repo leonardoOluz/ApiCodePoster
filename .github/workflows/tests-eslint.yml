@@ -1,4 +1,4 @@
-name: pre-push
+name: Teste Eslint
 on:
   push:
     branches-ignore:

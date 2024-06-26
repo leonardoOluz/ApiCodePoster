@@ -10,13 +10,15 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll --detectOpenHandles",
     "test:db": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=src/test/db/dbConexao.test.js --detectOpenHandles",
-    "test:model": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=src/test/models/ --detectOpenHandles"
+    "test:model": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=src/test/models/ --detectOpenHandles",
+    "test:service": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=src/test/service/ --detectOpenHandles"
   },
   "author": "Leonardo Luz",
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.7.0",
     "mongoose": "^8.4.1"
   },
   "devDependencies": {

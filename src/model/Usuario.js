@@ -28,6 +28,12 @@ const usuarioSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  createdAt: {
+    type: mongoose.Schema.Types.Date,
+  },
+  updatedAt: {
+    type: mongoose.Schema.Types.Date,
+  },
 }, { versionKey: false });
 
 const usuarios = mongoose.model('usuarios', usuarioSchema);

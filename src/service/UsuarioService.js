@@ -12,7 +12,7 @@ class UsuarioService extends Services {
 
   async signUp(dtn) {
     const {
-      nome, apelido, foto, email, senha,
+      nome, apelido, foto, email, senha, createdAt, updatedAt,
     } = dtn;
 
     if (!senha) {
@@ -27,6 +27,8 @@ class UsuarioService extends Services {
       email,
       hash: senhaHash,
       sal,
+      createdAt,
+      updatedAt,
     });
     return { message: 'Usuario criado com sucesso !' };
   }

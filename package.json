@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "lint": "eslint --fix --ignore-path .gitignore .",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles",
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll --detectOpenHandles",
     "test:db": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=src/test/db/dbConexao.test.js --detectOpenHandles",
     "test:model": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=src/test/models/ --detectOpenHandles",

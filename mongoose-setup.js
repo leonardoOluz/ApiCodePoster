@@ -1,12 +1,28 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { afterAll, beforeAll } from '@jest/globals';
+/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 import mongoose from 'mongoose';
 import 'dotenv/config';
 
-beforeAll(async () => {
-  await mongoose.connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: true });
-});
+const conexaoMongoose = () => {
+  const conexaoOn = async () => {
+    try {
+      // Cria a conexão com MongoDB, ou reutiliza se já existir.
+      await mongoose.connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: true });
+      console.warn('Conexão com MongoDB estabelecida!');
+    } catch (error) {
+      throw new Error(`Erro ao conectar à base de dados: ${error}`);
+    }
+  };
 
-afterAll(async () => {
-  await mongoose.disconnect();
-});
+  const disconnectionOff = async () => {
+    await mongoose.disconnect();
+    console.warn('Conexão com MongoDB encerrada!');
+  };
+
+  return {
+    conexaoOn,
+    disconnectionOff,
+  };
+};
+
+export default conexaoMongoose;

@@ -11,7 +11,8 @@
     "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll --detectOpenHandles",
     "test:db": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=src/test/db/dbConexao.test.js --detectOpenHandles",
     "test:model": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=src/test/models/ --detectOpenHandles",
-    "test:service": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=src/test/service/ --detectOpenHandles"
+    "test:service": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=src/test/service/ --detectOpenHandles",
+    "test:routes": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern=src/test/routes/ --detectOpenHandles"
   },
   "author": "Leonardo Luz",
   "license": "ISC",

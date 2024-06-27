@@ -18,43 +18,51 @@ afterAll(async () => {
 });
 
 const dtnMock = {
+  id_usuario: '667354473deeb5146cb21655',
+  titulo: 'CodePen',
+  descricao: 'Codigo gerado pelo codePen',
+  linguagem: 'javascript',
+  codigo: 'const app = (a, b) => {return a * b}',
+  cor: '#f1f1f1',
+  curtidas_id_usuario: [],
+  mensagem: [],
 };
 
-describe.skip('Testes de postagem no banco de dados', () => {
+describe('Testes de postagem no banco de dados', () => {
   const postagemService = new PostagemService();
   it('Criando postagem usando - createDate', async () => {
     const postagemCreate = await postagemService.createDate(dtnMock);
-    expect(postagemCreate).toEqual(
-      expect.objectContaining(dtnMock),
-    );
+    dtnMock.id = postagemCreate._id;
+    expect(postagemCreate.titulo).toEqual(dtnMock.titulo);
   });
 
   it('Verificar se os dados de postagem no DB são o mesmo do Mock - getOne', async () => {
-    const postagemDb = await postagemService.getOne({ postagem: dtnMock.postagem });
-    dtnMock.id = postagemDb._id;
-    expect(postagemDb.postagem).toEqual(dtnMock.postagem);
-    expect(postagemDb.texto).toEqual(dtnMock.texto);
+    const postagemDb = await postagemService.getOne({ descricao: dtnMock.descricao });
+    expect(postagemDb.descricao).toEqual(dtnMock.descricao);
+    expect(postagemDb.cor).toEqual(dtnMock.cor);
   });
 
   it('Verificar todos os postagems - getAllDate', async () => {
     const arraypostagems = await postagemService.getAllDate();
-    const chekpostagem = arraypostagems.some((item) => item.postagem === dtnMock.postagem);
+    const chekpostagem = arraypostagems.some((item) => (
+      item.descricao === dtnMock.descricao && item.codigo === dtnMock.codigo
+    ));
     expect(chekpostagem).toBeTruthy();
   });
 
   it('Buscar postagem por id filtrando dados de postagem - getOneId', async () => {
     const postagemId = await postagemService.getOneId({ _id: dtnMock.id });
-    expect(postagemId.postagem).toEqual(dtnMock.postagem);
+    expect(postagemId.cor).toEqual(dtnMock.cor);
   });
 
   it('Modificar texto da postagem - updateDate', async () => {
-    dtnMock.texto = 'Testando a mudança do texto!';
+    dtnMock.cor = '#ffffff';
     await postagemService.updateDate(
       { _id: dtnMock.id },
-      { texto: dtnMock.texto },
+      { cor: dtnMock.cor },
     );
-    const newNamepostagem = await postagemService.getOne({ texto: dtnMock.texto });
-    expect(newNamepostagem.texto).toEqual(dtnMock.texto);
+    const newNamepostagem = await postagemService.getOneId({ _id: dtnMock.id });
+    expect(newNamepostagem.cor).toEqual(dtnMock.cor);
   });
 
   it('Deletar postagem Mock do Db - dropDate', async () => {

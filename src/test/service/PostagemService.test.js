@@ -4,7 +4,7 @@
 import {
   afterAll, beforeAll, describe, expect, it,
 } from '@jest/globals';
-import LinguagemService from '../../service/LinguagemService.js';
+import PostagemService from '../../service/PostagemService.js';
 import conexaoMongoose from '../../../mongoose-setup.js';
 
 const { conexaoOn, disconnectionOff } = conexaoMongoose();
@@ -18,49 +18,47 @@ afterAll(async () => {
 });
 
 const dtnMock = {
-  linguagem: 'flutter',
-  texto: 'flutter com Darter',
 };
 
-describe.skip('Testes de linguagem no banco de dados', () => {
-  const linguagemService = new LinguagemService();
-  it('Criando linguagem usando - createDate', async () => {
-    const linguagemCreate = await linguagemService.createDate(dtnMock);
-    expect(linguagemCreate).toEqual(
+describe.skip('Testes de postagem no banco de dados', () => {
+  const postagemService = new PostagemService();
+  it('Criando postagem usando - createDate', async () => {
+    const postagemCreate = await postagemService.createDate(dtnMock);
+    expect(postagemCreate).toEqual(
       expect.objectContaining(dtnMock),
     );
   });
 
-  it('Verificar se os dados do linguagem no DB são o mesmo do Mock - getOne', async () => {
-    const linguageDb = await linguagemService.getOne({ linguagem: dtnMock.linguagem });
-    dtnMock.id = linguageDb._id;
-    expect(linguageDb.linguagem).toEqual(dtnMock.linguagem);
-    expect(linguageDb.texto).toEqual(dtnMock.texto);
+  it('Verificar se os dados de postagem no DB são o mesmo do Mock - getOne', async () => {
+    const postagemDb = await postagemService.getOne({ postagem: dtnMock.postagem });
+    dtnMock.id = postagemDb._id;
+    expect(postagemDb.postagem).toEqual(dtnMock.postagem);
+    expect(postagemDb.texto).toEqual(dtnMock.texto);
   });
 
-  it('Verificar todos os linguagems - getAllDate', async () => {
-    const arraylinguagems = await linguagemService.getAllDate();
-    const cheklinguagem = arraylinguagems.some((item) => item.linguagem === dtnMock.linguagem);
-    expect(cheklinguagem).toBeTruthy();
+  it('Verificar todos os postagems - getAllDate', async () => {
+    const arraypostagems = await postagemService.getAllDate();
+    const chekpostagem = arraypostagems.some((item) => item.postagem === dtnMock.postagem);
+    expect(chekpostagem).toBeTruthy();
   });
 
-  it('Buscar linguagem por id filtrando dados de linguagem - getOneId', async () => {
-    const linguagemId = await linguagemService.getOneId({ _id: dtnMock.id });
-    expect(linguagemId.linguagem).toEqual(dtnMock.linguagem);
+  it('Buscar postagem por id filtrando dados de postagem - getOneId', async () => {
+    const postagemId = await postagemService.getOneId({ _id: dtnMock.id });
+    expect(postagemId.postagem).toEqual(dtnMock.postagem);
   });
 
-  it('Modificar texto da linguagem - updateDate', async () => {
+  it('Modificar texto da postagem - updateDate', async () => {
     dtnMock.texto = 'Testando a mudança do texto!';
-    await linguagemService.updateDate(
+    await postagemService.updateDate(
       { _id: dtnMock.id },
       { texto: dtnMock.texto },
     );
-    const newNamelinguagem = await linguagemService.getOne({ texto: dtnMock.texto });
-    expect(newNamelinguagem.texto).toEqual(dtnMock.texto);
+    const newNamepostagem = await postagemService.getOne({ texto: dtnMock.texto });
+    expect(newNamepostagem.texto).toEqual(dtnMock.texto);
   });
 
-  it('Deletar linguagem Mock do Db - dropDate', async () => {
-    const result = await linguagemService.dropDate({ _id: dtnMock.id });
+  it('Deletar postagem Mock do Db - dropDate', async () => {
+    const result = await postagemService.dropDate({ _id: dtnMock.id });
     expect(result._id).toEqual(dtnMock.id);
   });
 });

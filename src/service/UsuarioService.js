@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable import/extensions */
 import Services from './services.js';
 import { createSalHash, decodeSalHash } from '../utils/salHash.js';
@@ -41,7 +42,7 @@ class UsuarioService extends Services {
       /* se houver dados verificar sal e hash */
       if (await decodeSalHash(senha, userChecked.hash, userChecked.sal)) {
         /* se a senha conferir criar token */
-        return createToken({ id: userChecked.id, usuario: userChecked.nome });
+        return createToken({ id: userChecked._id, usuario: userChecked.nome });
       }
       throw new ErrorIncorrectRequest('Verifique sua senha de acesso !');
     } else {

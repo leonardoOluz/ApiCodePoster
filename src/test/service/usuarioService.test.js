@@ -22,7 +22,7 @@ const dtnMock = {
   nome: 'Vanderlei Luz',
   apelido: '@Leyluz',
   foto: 'VanderleiLuz',
-  email: 'ley@email.com',
+  email: 'vanderleypereira@email.com',
   senha: 'vanderley123',
 };
 
@@ -43,7 +43,7 @@ describe('Testes de Usuario no banco de dados', () => {
 
   it('Verificar o retorno do token e ckecar o cumprimento do texto de token para validar. - login', async () => {
     const accessToken = await usuarioService.login(dtnMock.senha, dtnMock.email);
-    expect(accessToken).toHaveLength(163);
+    expect(accessToken).toHaveLength(205);
   });
 
   it('Verificar todos os usuarios - getAllUser', async () => {

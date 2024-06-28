@@ -3,6 +3,7 @@
 import request from 'supertest';
 import {
   afterAll, beforeAll, describe, expect, it,
+  test,
 } from '@jest/globals';
 import app from '../../app.js';
 import conexaoMongoose from '../../../mongoose-setup.js';
@@ -10,21 +11,17 @@ import conexaoMongoose from '../../../mongoose-setup.js';
 const { conexaoOn, disconnectionOff } = conexaoMongoose();
 
 let server;
-const msg = [{
-  message: 'Verifique seu email ou faça um cadastro.',
-  status: 400,
-},
-{
-  message: 'Campo senha é obrigatório',
-  status: 400,
-}, {
-  message: 'Verifique sua senha de acesso !',
-  status: 400,
-}];
-
-const loginMockOne = {
+const loginMock = {
   email: 'lucca@email.com',
   senha: 'lucca123',
+};
+
+const signUpMock = {
+  nome: 'Miles Morales',
+  apelido: '@MilesMorales',
+  foto: 'MilesMorales',
+  email: 'milesmorales@email.com',
+  senha: 'miles123',
 };
 
 beforeAll(async () => {
@@ -39,38 +36,26 @@ afterAll(async () => {
 });
 
 describe('Testes de rotas em Auth', () => {
-  it('O login deve possuir um email para se autenticar', async () => {
-    /* O email do usuario é obrigatório */
+  test.each([
+    ['um email', 'Verifique seu email ou faça um cadastro.', { senha: loginMock.senha }],
+    ['senha', 'Campo senha é obrigatório', { email: loginMock.email }],
+    ['senha válida', 'Verifique sua senha de acesso !', { email: loginMock.email, senha: '123456' }],
+  ])('O login deve possuir %s para autenticar', async (nome, check, send) => {
     await request(server)
       .post('/user/login')
-      .send({ senha: loginMockOne.senha })
+      .send(send)
       .expect(400)
-      .expect(msg[0]);
-  });
-
-  it('O login deve possuir senha para se autenticar', async () => {
-    /* A senha de usuario é obrigatório */
-    await request(server)
-      .post('/user/login')
-      .send({ email: loginMockOne.email })
-      .expect(400)
-      .expect(msg[1]);
-  });
-
-  it('O login deve possuir senha válida para autenticar', async () => {
-    /* A senha de usuario é obrigatório */
-    await request(server)
-      .post('/user/login')
-      .send({ email: loginMockOne.email, senha: '123456' })
-      .expect(400)
-      .expect(msg[2]);
+      .expect({
+        message: `${check}`,
+        status: 400,
+      });
   });
 
   it('Verificar mensagem de necessário token com caminho da rota errada.', async () => {
     const notToken = { message: 'Necessário informar o token' };
     await request(server)
       .post('/user/logi0')// erro de rota sem token caminho da URI
-      .send({ email: loginMockOne.email, senha: '123456' })
+      .send({ email: loginMock.email, senha: '123456' })
       .expect(401)
       .expect(notToken);
   });
@@ -78,8 +63,31 @@ describe('Testes de rotas em Auth', () => {
   it('Recebendo o token com mensagem de ok', async () => {
     const response = await request(server)
       .post('/user/login')
-      .send({ email: loginMockOne.email, senha: loginMockOne.senha })
+      .send({ email: loginMock.email, senha: loginMock.senha })
       .expect(200);
     expect(response.body.message).toHaveLength(211);
+  });
+});
+
+describe('Teste de validação de sign-up', () => {
+  const dados = Object.keys(signUpMock);
+  test.each([
+    ['nome', 'Verifique o campo nome: É obrigatório', 0],
+    ['apelido', 'Verifique o campo apelido: É obrigatório', 1],
+    ['foto', 'Verifique o campo foto: É obrigatório', 2],
+    ['email', 'Verifique o campo email: É obrigatório', 3],
+    ['senha', 'Verifique o campo senha', 4],
+
+  ])('teste de validação de %s', async (value, dtn, num) => {
+    signUpMock[value] = '';
+    signUpMock[dados[num - 1]] = 'testes@paravalidacao.com';
+    const response = await request(server)
+      .post('/usuario/sign-up')
+      .send(signUpMock)
+      .expect(400)
+      .expect({
+        message: `${dtn}`,
+        status: 400,
+      });
   });
 });

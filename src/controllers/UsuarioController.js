@@ -34,6 +34,16 @@ class UsuarioController extends Controller {
       return next(error);
     }
   }
+
+  async getOneForQuery(req, res, next) {
+    const { nome } = req.query;
+    try {
+      const result = await this.usuario.getOneForQuery({ nome });
+      return res.status(200).json(result);
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 export default UsuarioController;

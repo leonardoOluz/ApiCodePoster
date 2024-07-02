@@ -16,7 +16,7 @@ const mensagemSchema = mongoose.Schema({
     type: String,
     required: [true, 'É obrigatório'],
   },
-}, { versionKey: false });
+}, { timestamps: true, versionKey: false });
 
 const mensagens = mongoose.model('mensagens', mensagemSchema);
 

@@ -4,6 +4,9 @@ import { scryptSync, randomBytes, timingSafeEqual } from 'crypto';
 import ErroBase from '../errors/ErrorBase.js';
 
 function createSalHash(senha) {
+  if (!senha) {
+    return ':';
+  }
   const sal = randomBytes(16).toString('hex');
   const senhaHash = scryptSync(senha, sal, 64).toString('hex');
   return `${sal}:${senhaHash}`;

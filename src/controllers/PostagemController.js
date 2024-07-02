@@ -9,6 +9,16 @@ class PostagemController extends Controller {
     super(postagemService);
     this.postagem = postagemService;
   }
+
+  async getOneForQuery(req, res, next) {
+    const { titulo } = req.query;
+    try {
+      const result = await this.postagem.getOneForQuery({ titulo });
+      return res.status(200).json(result);
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 export default PostagemController;

@@ -7,7 +7,7 @@ const linguagemSchema = mongoose.Schema({
     required: [true, 'É obrigatório'],
   },
   texto: { type: String },
-}, { versionKey: false });
+}, { timestamps: true, versionKey: false });
 
 const linguagens = mongoose.model('linguagens', linguagemSchema);
 

@@ -16,8 +16,8 @@ class Services {
     return response;
   }
 
-  async getOne(dtn) {
-    const response = await dataBase[this.model].findOne(dtn).exec();
+  async getOne(dtn, returned = '') {
+    const response = await dataBase[this.model].findOne(dtn, returned).exec();
     return response;
   }
 

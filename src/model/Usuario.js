@@ -22,19 +22,12 @@ const usuarioSchema = mongoose.Schema({
   },
   hash: {
     type: String,
-    required: true,
+    required: [true, 'É obrigatório'],
   },
   sal: {
     type: String,
-    required: true,
   },
-  createdAt: {
-    type: mongoose.Schema.Types.Date,
-  },
-  updatedAt: {
-    type: mongoose.Schema.Types.Date,
-  },
-}, { versionKey: false });
+}, { timestamps: true, versionKey: false });
 
 const usuarios = mongoose.model('usuarios', usuarioSchema);
 

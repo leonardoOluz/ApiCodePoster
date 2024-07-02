@@ -1,4 +1,5 @@
 /* eslint-disable import/extensions */
+import ErroBase from '../errors/ErrorBase.js';
 import ErrorIncorrectRequest from '../errors/ErrorIncorrectRequest.js';
 
 class Controller {
@@ -34,7 +35,8 @@ class Controller {
     const dtn = req.body;
     try {
       const newDate = await this.service.createDate(dtn);
-      return res.status(200).json(newDate);
+      if (!newDate) return next(new ErroBase('Erro não identificado, tente novamente mais tarde!'));
+      return res.status(200).json({ mesage: 'dados criado com sucesso!' });
     } catch (error) {
       return next(error);
     }

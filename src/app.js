@@ -13,12 +13,12 @@ const conexao = await dbConnect();
 routes(app);
 app.use(errorValidations);
 
-conexao.on('error', (error) => {
+conexao.on('error', async (error) => {
   /* erro de conexão */
-  console.error('Erro de conexão', error);
+  console.error('Erro de conexão', await error);
 });
 
-conexao.once('open', () => {
+conexao.once('open', async () => {
   /* Conexão com banco de dados ok */
   console.warn('conectado com banco mongoDB !');
 });

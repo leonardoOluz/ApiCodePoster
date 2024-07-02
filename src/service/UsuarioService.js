@@ -4,7 +4,7 @@ import Services from './services.js';
 import { createSalHash, decodeSalHash } from '../utils/salHash.js';
 import { createToken } from '../utils/authUtils.js';
 import ErrorIncorrectRequest from '../errors/ErrorIncorrectRequest.js';
-import ErroBase from '../errors/ErrorBase.js';
+// import ErroBase from '../errors/ErrorBase.js';
 
 class UsuarioService extends Services {
   constructor() {
@@ -16,9 +16,6 @@ class UsuarioService extends Services {
       nome, apelido, foto, email, senha, createdAt, updatedAt,
     } = dtn;
 
-    if (!senha) {
-      throw new ErroBase('Verifique o campo senha', 400);
-    }
     const [sal, senhaHash] = createSalHash(senha).split(':');
 
     await super.createDate({
@@ -59,6 +56,12 @@ class UsuarioService extends Services {
   async getOneById(id) {
     const returned = 'nome apelido foto email';
     const result = await super.getOneId(id, returned);
+    return result;
+  }
+
+  async getOneForQuery(dtn) {
+    const returned = 'nome apelido foto email';
+    const result = await super.getOne(dtn, returned);
     return result;
   }
 }

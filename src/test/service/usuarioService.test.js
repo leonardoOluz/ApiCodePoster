@@ -5,10 +5,8 @@ import {
   afterAll, beforeAll, describe, expect, it,
 } from '@jest/globals';
 import UsuarioService from '../../service/UsuarioService.js';
-import conexaoMongoose from '../../../mongoose-setup.js';
+import { conexaoOn, disconnectionOff } from '../../../mongoose-setup.js';
 import 'dotenv/config';
-
-const { conexaoOn, disconnectionOff } = conexaoMongoose();
 
 beforeAll(async () => {
   await conexaoOn();

@@ -36,7 +36,7 @@ const postagemSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'mensagens',
   }],
-}, { versionKey: false });
+}, { timestamps: true, versionKey: false });
 
 const postagens = mongoose.model('postagens', postagemSchema);
 

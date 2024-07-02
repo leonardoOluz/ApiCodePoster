@@ -4,9 +4,7 @@ import {
   afterAll, beforeAll, describe, expect, it,
 } from '@jest/globals';
 import MensagemService from '../../service/MensagemService.js';
-import conexaoMongoose from '../../../mongoose-setup.js';
-
-const { conexaoOn, disconnectionOff } = conexaoMongoose();
+import { conexaoOn, disconnectionOff } from '../../../mongoose-setup.js';
 
 beforeAll(async () => {
   await conexaoOn();

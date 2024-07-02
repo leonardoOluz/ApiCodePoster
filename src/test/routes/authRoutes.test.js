@@ -35,7 +35,7 @@ afterAll(async () => {
   await server.close();
 });
 
-describe.skip('Teste em rotas de Autenticação', () => {
+describe('Teste em rotas de Autenticação', () => {
   describe('Testes de rotas em Auth', () => {
     test.each([
       ['um email', 'Verifique seu email ou faça um cadastro.', { senha: loginMock.senha }],
@@ -51,16 +51,14 @@ describe.skip('Teste em rotas de Autenticação', () => {
           status: 400,
         });
     });
-
     it('Verificar mensagem de necessário token com caminho da rota errada.', async () => {
       const notToken = { message: 'Necessário informar o token' };
       await request(server)
-        .post('/user/logi0')// erro de rota sem token caminho da URI
+        .post('/user/logi0')// informando rota com erro sem token
         .send({ email: loginMock.email, senha: '123456' })
         .expect(401)
         .expect(notToken);
     });
-
     it('Recebendo o token com mensagem de ok', async () => {
       const response = await request(server)
         .post('/user/login')
@@ -89,7 +87,7 @@ describe.skip('Teste em rotas de Autenticação', () => {
     ])('teste de validação de %s', async (value, dtn, num) => {
       signUpMock[value] = '';
       signUpMock[dados[num - 1]] = 'testes@paravalidacao.com';
-      const response = await request(server)
+      await request(server)
         .post('/usuario/sign-up')
         .send(signUpMock)
         .expect(400)
@@ -99,7 +97,7 @@ describe.skip('Teste em rotas de Autenticação', () => {
         });
     });
     it('Teste de Usuario criado com sucesso !', async () => {
-      const response = await request(server)
+      await request(server)
         .post('/usuario/sign-up')
         .send(newUserMock)
         .expect(200)
@@ -107,7 +105,6 @@ describe.skip('Teste em rotas de Autenticação', () => {
           message: 'Usuario criado com sucesso !',
         });
     });
-
     it('Teste de email já está sendo utiizado, escolha outro email', async () => {
       await request(server)
         .post('/usuario/sign-up')
@@ -118,7 +115,6 @@ describe.skip('Teste em rotas de Autenticação', () => {
           status: 400,
         });
     });
-
     it('Teste de apelido já está sendo utiizado, escolha outro apelido !', async () => {
       newUserMock.email = 'testjest@email.com';
       await request(server)
@@ -130,12 +126,11 @@ describe.skip('Teste em rotas de Autenticação', () => {
           status: 400,
         });
     });
-
     it('Deletar usuario criado por teste', async () => {
       const response = await request(server)
         .get(`/usuarios/busca?nome=${newUserMock.nome}`)
         .set('Authorization', `bearer ${auth}`);
-      const result = await request(server)
+      await request(server)
         .delete(`/usuario/${response.body._id}`)
         .set('Authorization', `bearer ${auth}`)
         .expect(200)

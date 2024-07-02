@@ -15,14 +15,12 @@ describe('Teste de modelo de usuario', () => {
     hash: '123456789qwertyuiop123456789qwertyuiop',
     sal: '123456789qwertyuiop123456789qwertyuiop',
   };
-
   it('instanciando uma nova usuario', () => {
     const usuario = usuarios(usuarioMock);
     expect(usuario).toEqual(
       expect.objectContaining(usuarioMock),
     );
   });
-
   it('Simular a criação de dados no DB.', () => {
     const usuario = usuarios(usuarioMock);
     usuario.create = jest.fn().mockReturnValue({
@@ -34,7 +32,6 @@ describe('Teste de modelo de usuario', () => {
       hash: '123456789qwertyuiop123456789qwertyuiop',
       sal: '123456789qwertyuiop123456789qwertyuiop',
     });
-
     const returned = usuario.create();
     expect(returned).toEqual(
       expect.objectContaining({

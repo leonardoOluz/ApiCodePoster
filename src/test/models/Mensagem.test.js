@@ -12,12 +12,10 @@ describe('Testando o modelo Linguagem', () => {
     id_postagem: '667883abf1f0c7688d9ae507',
     texto: 'Teste de modelo mensagem',
   };
-
   it('instanciando uma nova linguagem', () => {
     const mensagem = mensagens(mensagemMock);
     expect(mensagem.texto).toEqual(mensagemMock.texto);
   });
-
   it('Simular a criação de dados no DB.', () => {
     const mensagem = mensagens(mensagemMock);
     mensagem.create = jest.fn().mockReturnValue({

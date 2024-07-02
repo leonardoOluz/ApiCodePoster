@@ -11,14 +11,12 @@ describe('Teste de modelo de Linguagem', () => {
     linguagem: 'flutter',
     texto: 'Flutter',
   };
-
   it('instanciando uma nova linguagem', () => {
     const linguagem = linguagens(linguagemMock);
     expect(linguagem).toEqual(
       expect.objectContaining(linguagemMock),
     );
   });
-
   it('Simular a criação de dados no DB.', () => {
     const linguagem = linguagens(linguagemMock);
     linguagem.create = jest.fn().mockReturnValue({
@@ -26,7 +24,6 @@ describe('Teste de modelo de Linguagem', () => {
       linguagem: 'flutter',
       texto: 'Flutter',
     });
-
     const returned = linguagem.create();
     expect(returned).toEqual(
       expect.objectContaining({

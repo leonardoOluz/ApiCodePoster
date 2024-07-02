@@ -8,6 +8,12 @@ class MensagemService extends Services {
     this.postagemService = new Services('postagens');
   }
 
+  async getOneForQuery(dtn) {
+    const returned = 'texto';
+    const result = await super.getOne(dtn, returned);
+    return result;
+  }
+
   async checkDateMessagemValidate(dtn) {
     const resultUser = await this.usuarioService.getOneId({ _id: dtn.id_usuario });
     if (!resultUser) {

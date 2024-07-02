@@ -17,7 +17,6 @@ describe('Teste de modelo de postagem', () => {
     curtidas_id_usuario: [],
     mensagem: [],
   };
-
   it('instanciando uma nova linguagem', () => {
     const poster = postagens(postagemMock);
     expect(poster.titulo).toEqual(postagemMock.titulo);
@@ -26,7 +25,6 @@ describe('Teste de modelo de postagem', () => {
     expect(poster.codigo).toEqual(postagemMock.codigo);
     expect(poster.cor).toEqual(postagemMock.cor);
   });
-
   it('Simular a criação de dados no DB.', () => {
     const postagem = postagens(postagemMock);
     postagem.create = jest.fn().mockReturnValue({
@@ -40,7 +38,6 @@ describe('Teste de modelo de postagem', () => {
       curtidas_id_usuario: [],
       mensagem: [],
     });
-
     const returned = postagem.create();
     expect(returned).toEqual(
       expect.objectContaining({

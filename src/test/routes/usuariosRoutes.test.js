@@ -30,13 +30,13 @@ const newUserMock = {
   senha: 'miles123',
 };
 
-describe.skip('Testes em Rotas de Usuario', () => {
+describe('Testes em Rotas de Usuario', () => {
   describe('Create usuario utilizando sign-up', () => {
     it('Teste de Usuario criado com sucesso !', async () => {
-      const response = await request(server)
+      await request(server)
         .post('/usuario/sign-up')
         .send(newUserMock)
-        .expect(200) // Aceita a resposta OK (status 200)
+        .expect(200)
         .expect('Content-Type', /json/)
         .expect({
           message: 'Usuario criado com sucesso !',
@@ -56,7 +56,7 @@ describe.skip('Testes em Rotas de Usuario', () => {
       const res = await request(server)
         .get('/usuarios')
         .auth(auth, { type: 'bearer' })
-        .expect(200) // Aceita a resposta OK (status 200)
+        .expect(200)
         .expect('Content-Type', /json/);
       if (Array.isArray(res.body)) {
         expect(res.body).toEqual(expect.arrayContaining(
@@ -67,7 +67,7 @@ describe.skip('Testes em Rotas de Usuario', () => {
             foto: expect.any(String),
             nome: expect.any(String),
           }],
-        )); // Verifica se o array contém objetos com as propriedades esperadas;
+        ));
       } else {
         expect(res.body).toBeNull();
       }
@@ -76,7 +76,7 @@ describe.skip('Testes em Rotas de Usuario', () => {
       const response = await request(server)
         .get(`/usuarios/busca?nome=${newUserMock.nome}`)
         .set('Authorization', `bearer ${auth}`)
-        .expect(200) // Aceita a resposta OK (status 200)
+        .expect(200)
         .expect('Content-Type', /json/);
       newUserMock._id = response.body._id;
       expect(response.body).toEqual(expect.objectContaining({
@@ -90,21 +90,21 @@ describe.skip('Testes em Rotas de Usuario', () => {
   });
   describe('PUT em UsuarioRoutes', () => {
     it('Atualizando usuario por id', async () => {
-      const response = await request(server)
+      await request(server)
         .put(`/usuario/${newUserMock._id}`)
         .send({ apelido: 'Homem Aranha' })
         .auth(auth, { type: 'bearer' })
-        .expect(200) // Aceita a resposta OK (status 200)
+        .expect(200)
         .expect('Content-Type', /json/)
         .expect({ message: `id: ${newUserMock._id} foi atualizado com sucesso` });
     });
   });
   describe('DELETE em UsuarioRoutes', () => {
     it('deletar usuario por id', async () => {
-      const response = await request(server)
+      await request(server)
         .delete(`/usuario/${newUserMock._id}`)
         .auth(auth, { type: 'bearer' })
-        .expect(200) // Aceita a resposta OK (status 200)
+        .expect(200)
         .expect('Content-Type', /json/)
         .expect({ message: `id: ${newUserMock._id} foi deletado com sucesso` });
     });

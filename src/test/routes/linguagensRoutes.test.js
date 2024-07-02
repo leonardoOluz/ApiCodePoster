@@ -22,17 +22,13 @@ afterAll(async () => {
   await server.close();
 });
 
-const postagemMock = {
-  id_usuario: '667354473deeb5146cb21655',
-  titulo: 'Testando rotas de postagem',
-  descricao: 'Esse é um teste de rotas de postagem',
-  linguagem: 'php',
-  codigo: '?php/> function app(a, b){ return a + b <php>',
-  cor: '#f2f2f2',
+const linguagemMock = {
+  linguagem: 'go',
+  texto: 'linguagem go',
 };
 
-describe('Testes em Rotas de Postagem', () => {
-  describe('Create em Postagem', () => {
+describe('Testes em Rotas de linguagem', () => {
+  describe('Create em linguagem', () => {
     it('Recebendo Token para testes', async () => {
       const response = await request(server)
         .post('/user/login')
@@ -41,20 +37,21 @@ describe('Testes em Rotas de Postagem', () => {
       auth = await response.body.message;
       expect(response.body.message).toHaveLength(211);
     });
-    it('Teste de postagem criada com sucesso !', async () => {
+    it('Teste de linguagem criada com sucesso !', async () => {
+      /* OK  */
       await request(server)
-        .post('/postagem')
-        .send(postagemMock)
+        .post('/linguagen')
+        .send(linguagemMock)
         .set('Authorization', `bearer ${auth}`)
         .expect(200)
         .expect('Content-Type', /json/)
         .expect({ message: 'dados criado com sucesso!' });
     });
   });
-  describe('GET em PostagemRoutes', () => {
-    it('retorna uma lista de postagem como um array de objetos quando chamada com GET ', async () => {
+  describe('GET em linguagemRoutes', () => {
+    it('retorna uma lista de linguagem como um array de objetos quando chamada com GET ', async () => {
       const res = await request(server)
-        .get('/postagens')
+        .get('/linguagens')
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/);
@@ -62,84 +59,68 @@ describe('Testes em Rotas de Postagem', () => {
         expect(res.body).toEqual(expect.arrayContaining(
           [{
             _id: expect.any(String),
-            id_usuario: expect.any(String),
-            titulo: expect.any(String),
-            descricao: expect.any(String),
             linguagem: expect.any(String),
-            codigo: expect.any(String),
-            cor: expect.any(String),
-            curtidas_id_usuario: expect.any(Array),
-            mensagem: expect.any(Array),
+            texto: expect.any(String),
+            createdAt: expect.any(String),
+            updatedAt: expect.any(String),
           }],
         ));
       } else {
         expect(res.body).toBeNull();
       }
     });
-    it('acessar Postagem por titulo', async () => {
+    it('acessar linguagem por texto', async () => {
       const response = await request(server)
-        .get(`/postagem/busca?titulo=${postagemMock.titulo}`)
+        .get(`/linguagen/busca/?linguagem=${linguagemMock.linguagem}`)
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/);
-      postagemMock._id = response.body._id;
+      linguagemMock._id = response.body._id;
       expect(response.body).toEqual(expect.objectContaining({
         _id: expect.any(String),
-        titulo: expect.any(String),
-        descricao: expect.any(String),
         linguagem: expect.any(String),
-        codigo: expect.any(String),
-        cor: expect.any(String),
-        curtidas_id_usuario: expect.any(Array),
-        mensagem: expect.any(Array),
+        texto: expect.any(String),
       }));
     });
-    it('acessar postagem por id', async () => {
+    it('acessar linguagem por id', async () => {
       const response = await request(server)
-        .get(`/postagem/${postagemMock._id}`)
+        .get(`/linguagen/${linguagemMock._id}`)
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/);
       expect(response.body.resultSearched).toEqual(expect.objectContaining({
-        /* Colocar o objeto de verificação */
         _id: expect.any(String),
-        id_usuario: expect.any(String),
-        titulo: expect.any(String),
-        descricao: expect.any(String),
         linguagem: expect.any(String),
-        codigo: expect.any(String),
-        cor: expect.any(String),
-        curtidas_id_usuario: expect.any(Array),
-        mensagem: expect.any(Array),
+        texto: expect.any(String),
       }));
     });
   });
-  describe('PUT em PostagemRoutes', () => {
-    it('Atualizando Postagem por id', async () => {
-      postagemMock.titulo = 'Um novo titulo para teste';
+  describe('PUT em linguagemRoutes', () => {
+    it('Atualizando linguagem por id', async () => {
+      linguagemMock.linguagem = 'cobol';
       await request(server)
-        .put(`/postagem/${postagemMock._id}`)
-        .send({ titulo: postagemMock.titulo })
+        .put(`/linguagen/${linguagemMock._id}`)
+        .send({ linguagem: linguagemMock.linguagem })
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect({ message: `id: ${postagemMock._id} foi atualizado com sucesso` });
+        .expect({ message: `id: ${linguagemMock._id} foi atualizado com sucesso` });
       const response = await request(server)
-        .get(`/postagem/${postagemMock._id}`)
+        .get(`/linguagen/${linguagemMock._id}`)
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/);
-      expect(response.body.resultSearched.titulo).toEqual(postagemMock.titulo);
+      expect(response.body.resultSearched.linguagem).toEqual(linguagemMock.linguagem);
     });
   });
-  describe('DELETE em PostagemRoutes', () => {
-    it('deletar Postagem por id', async () => {
+  describe('DELETE em linguagemRoutes', () => {
+    it('deletar linguagem por id', async () => {
       await request(server)
-        .delete(`/postagem/${postagemMock._id}`)
+        .delete(`/linguagen/${linguagemMock._id}`)
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect({ message: `id: ${postagemMock._id} foi deletado com sucesso` });
+        .expect({ message: `id: ${linguagemMock._id} foi deletado com sucesso` });
     });
   });
 });

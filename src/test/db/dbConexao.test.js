@@ -11,7 +11,7 @@ describe('Testando a conexão com o MongoDB', () => {
       expect(true).toBeTruthy(); // Verifica se a conexão foi bem-sucedida
     } catch (error) {
       console.error(error);
-      expect(false).toBeTruthy(); // Acontece caso haja um erro na conexão
+      expect(false).toBeTruthy(); // caso haja um erro na conexão
     }
   });
 });

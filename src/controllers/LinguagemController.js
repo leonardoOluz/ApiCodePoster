@@ -9,6 +9,16 @@ class LinguagemController extends Controller {
     super(linguagemService);
     this.linguagem = linguagemService;
   }
+
+  async getOneForQuery(req, res, next) {
+    const { linguagem } = req.query;
+    try {
+      const result = await this.linguagem.getOneForQuery({ linguagem });
+      return res.status(200).json(result);
+    } catch (error) {
+      return next(error);
+    }
+  }
 }
 
 export default LinguagemController;

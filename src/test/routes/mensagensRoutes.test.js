@@ -22,17 +22,14 @@ afterAll(async () => {
   await server.close();
 });
 
-const postagemMock = {
+const mensagemMock = {
+  id_postagem: '667882e594eb54db12f6a23d',
   id_usuario: '667354473deeb5146cb21655',
-  titulo: 'Testando rotas de postagem',
-  descricao: 'Esse é um teste de rotas de postagem',
-  linguagem: 'php',
-  codigo: '?php/> function app(a, b){ return a + b <php>',
-  cor: '#f2f2f2',
+  texto: 'Essa é uma mensagem do JEST',
 };
 
-describe('Testes em Rotas de Postagem', () => {
-  describe('Create em Postagem', () => {
+describe('Testes em Rotas de mensagem', () => {
+  describe('Create em mensagem', () => {
     it('Recebendo Token para testes', async () => {
       const response = await request(server)
         .post('/user/login')
@@ -41,20 +38,20 @@ describe('Testes em Rotas de Postagem', () => {
       auth = await response.body.message;
       expect(response.body.message).toHaveLength(211);
     });
-    it('Teste de postagem criada com sucesso !', async () => {
+    it('Teste de mensagem criada com sucesso !', async () => {
       await request(server)
-        .post('/postagem')
-        .send(postagemMock)
+        .post('/mensagem')
+        .send(mensagemMock)
         .set('Authorization', `bearer ${auth}`)
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect({ message: 'dados criado com sucesso!' });
+        .expect({ message: 'Mensagem salva com sucesso' });
     });
   });
-  describe('GET em PostagemRoutes', () => {
-    it('retorna uma lista de postagem como um array de objetos quando chamada com GET ', async () => {
+  describe('GET em mensagemRoutes', () => {
+    it('retorna uma lista de mensagem como um array de objetos quando chamada com GET ', async () => {
       const res = await request(server)
-        .get('/postagens')
+        .get('/mensagens')
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/);
@@ -62,84 +59,67 @@ describe('Testes em Rotas de Postagem', () => {
         expect(res.body).toEqual(expect.arrayContaining(
           [{
             _id: expect.any(String),
+            id_postagem: expect.any(String),
             id_usuario: expect.any(String),
-            titulo: expect.any(String),
-            descricao: expect.any(String),
-            linguagem: expect.any(String),
-            codigo: expect.any(String),
-            cor: expect.any(String),
-            curtidas_id_usuario: expect.any(Array),
-            mensagem: expect.any(Array),
+            texto: expect.any(String),
           }],
         ));
       } else {
         expect(res.body).toBeNull();
       }
     });
-    it('acessar Postagem por titulo', async () => {
+    it('acessar mensagem por texto', async () => {
       const response = await request(server)
-        .get(`/postagem/busca?titulo=${postagemMock.titulo}`)
+        .get(`/mensagens/busca/?texto=${mensagemMock.texto}`)
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/);
-      postagemMock._id = response.body._id;
+      mensagemMock._id = response.body._id;
       expect(response.body).toEqual(expect.objectContaining({
         _id: expect.any(String),
-        titulo: expect.any(String),
-        descricao: expect.any(String),
-        linguagem: expect.any(String),
-        codigo: expect.any(String),
-        cor: expect.any(String),
-        curtidas_id_usuario: expect.any(Array),
-        mensagem: expect.any(Array),
+        texto: expect.any(String),
       }));
     });
-    it('acessar postagem por id', async () => {
+    it('acessar mensagem por id', async () => {
       const response = await request(server)
-        .get(`/postagem/${postagemMock._id}`)
+        .get(`/mensagens/${mensagemMock._id}`)
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/);
       expect(response.body.resultSearched).toEqual(expect.objectContaining({
-        /* Colocar o objeto de verificação */
         _id: expect.any(String),
+        id_postagem: expect.any(String),
         id_usuario: expect.any(String),
-        titulo: expect.any(String),
-        descricao: expect.any(String),
-        linguagem: expect.any(String),
-        codigo: expect.any(String),
-        cor: expect.any(String),
-        curtidas_id_usuario: expect.any(Array),
-        mensagem: expect.any(Array),
+        texto: expect.any(String),
       }));
     });
   });
-  describe('PUT em PostagemRoutes', () => {
-    it('Atualizando Postagem por id', async () => {
-      postagemMock.titulo = 'Um novo titulo para teste';
+  describe('PUT em mensagemRoutes', () => {
+    it('Atualizando mensagem por id', async () => {
+      mensagemMock.texto = 'Um novo texto para teste';
       await request(server)
-        .put(`/postagem/${postagemMock._id}`)
-        .send({ titulo: postagemMock.titulo })
+        .put(`/mensagem/${mensagemMock._id}`)
+        .send({ texto: mensagemMock.texto })
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect({ message: `id: ${postagemMock._id} foi atualizado com sucesso` });
+        .expect({ message: `id: ${mensagemMock._id} foi atualizado com sucesso` });
       const response = await request(server)
-        .get(`/postagem/${postagemMock._id}`)
+        .get(`/mensagens/${mensagemMock._id}`)
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/);
-      expect(response.body.resultSearched.titulo).toEqual(postagemMock.titulo);
+      expect(response.body.resultSearched.texto).toEqual(mensagemMock.texto);
     });
   });
-  describe('DELETE em PostagemRoutes', () => {
-    it('deletar Postagem por id', async () => {
+  describe('DELETE em mensagemRoutes', () => {
+    it('deletar mensagem por id', async () => {
       await request(server)
-        .delete(`/postagem/${postagemMock._id}`)
+        .delete(`/mensagem/${mensagemMock._id}`)
         .auth(auth, { type: 'bearer' })
         .expect(200)
         .expect('Content-Type', /json/)
-        .expect({ message: `id: ${postagemMock._id} foi deletado com sucesso` });
+        .expect({ message: `id: ${mensagemMock._id} foi deletado com sucesso` });
     });
   });
 });

@@ -36,7 +36,7 @@ class Controller {
     try {
       const newDate = await this.service.createDate(dtn);
       if (!newDate) return next(new ErroBase('Erro não identificado, tente novamente mais tarde!'));
-      return res.status(200).json({ mesage: 'dados criado com sucesso!' });
+      return res.status(200).json({ message: 'dados criado com sucesso!' });
     } catch (error) {
       return next(error);
     }

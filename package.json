@@ -1,6 +1,6 @@
 {
   "name": "api-code-poster",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "description": "Api do App CodePoster",
   "main": "index.js",
   "type": "module",

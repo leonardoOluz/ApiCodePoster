@@ -10,7 +10,7 @@ import cors from 'cors';
 
 const app = express();
 app.use(cors({
-  origin: 'https://app-code-poster.vercel.app/login', // Ajuste este valor conforme necessário
+  origin: 'https://app-code-poster.vercel.app', // Ajuste este valor conforme necessário
 }));
 
 routes(app);

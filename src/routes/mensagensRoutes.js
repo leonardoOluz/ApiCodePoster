@@ -6,6 +6,7 @@ const mensagem = new MensagemController();
 const router = Router();
 
 router
+  .get('/mensagens/poster/', (req, res, next) => mensagem.getAllMessagePoster(req, res, next))
   .get('/mensagens/busca/', (req, res, next) => mensagem.getOneForQuery(req, res, next))
   .get('/mensagens/:id', (req, res, next) => mensagem.getOneDateId(req, res, next))
   .get('/mensagens', (req, res, next) => mensagem.getAllDate(req, res, next))

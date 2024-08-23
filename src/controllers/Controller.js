@@ -10,13 +10,13 @@ class Controller {
   async getOneDateId(req, res, next) {
     const { id } = req.params;
     try {
-      const resultSearched = await this.service.getOneId(id);
-      if (!resultSearched) {
+      const data = await this.service.getOneId(id);
+      if (!data) {
         return next(
           new ErrorIncorrectRequest('Os dados fornecido não foram encontrado ou foram excluidos!'),
         );
       }
-      return res.status(200).json({ message: 'dados por id ', resultSearched });
+      return res.status(200).json(data);
     } catch (error) {
       return next(error);
     }

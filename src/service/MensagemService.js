@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable import/extensions */
 import Services from './services.js';
 
@@ -27,9 +28,15 @@ class MensagemService extends Services {
 
     const msg = resultPost.mensagem;
     const saveMessage = await super.createDate(dtn);
-    msg.push(saveMessage.id);
+    await msg.push(saveMessage._id);
     await this.postagemService.updateDate({ _id: dtn.id_postagem }, { mensagem: msg });
     return saveMessage;
+  }
+
+  async getAllMessagePoster(dtn) {
+    const returned = 'id_postagem id_usuario texto createdAt';
+    const result = await super.getAll(dtn, returned);
+    return result;
   }
 }
 

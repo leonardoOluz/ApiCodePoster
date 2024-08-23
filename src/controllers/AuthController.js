@@ -1,6 +1,7 @@
 /* eslint-disable import/extensions */
 import Controller from './Controller.js';
 import UsuarioService from '../service/UsuarioService.js';
+import ErrorIncorrectRequest from '../errors/ErrorIncorrectRequest.js';
 
 const usuarioService = new UsuarioService();
 
@@ -11,10 +12,17 @@ class AuthController extends Controller {
   }
 
   async signUp(req, res, next) {
-    const dtn = req.body;
+    const dtnb = req.body;
+    const dtnf = req.file;
+
     try {
-      const newUser = await this.usuario.signUp(dtn);
-      return res.status(200).json(newUser);
+      if (req.file) {
+        const newUser = await this.usuario.signUp(dtnb, dtnf);
+        return res.status(200).json(newUser);
+      }
+      return next(
+        new ErrorIncorrectRequest('Verifique o arquivo enviado,'),
+      );
     } catch (error) {
       return next(error);
     }
@@ -24,7 +32,7 @@ class AuthController extends Controller {
     const { email, senha } = req.body;
     try {
       const userChecked = await this.usuario.login(senha, email);
-      return res.status(200).json({ message: userChecked });
+      return res.status(200).json(userChecked);
     } catch (error) {
       return next(error);
     }

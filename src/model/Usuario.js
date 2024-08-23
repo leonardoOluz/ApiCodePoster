@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const usuarioSchema = mongoose.Schema({
+const usuarioSchema = new mongoose.Schema({
   id: { type: mongoose.Schema.Types.ObjectId },
   nome: {
     type: String,
@@ -8,11 +8,10 @@ const usuarioSchema = mongoose.Schema({
   },
   apelido: {
     type: String,
-    unique: true,
-    required: [true, 'É obrigatório'],
   },
-  foto: {
-    type: String,
+  id_image: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'images',
     required: [true, 'É obrigatório'],
   },
   email: {

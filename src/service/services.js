@@ -6,8 +6,19 @@ class Services {
     this.model = nomeModel;
   }
 
-  async getAllDate(returned = '') {
-    const response = await dataBase[this.model].find({}, returned).exec();
+  async getAllDate(returned = '', joined = '', other = '') {
+    const response = await dataBase[this.model]
+      .find({}, returned)
+      .populate(joined, other)
+      .exec();
+    return response;
+  }
+
+  async getAll(dtn, returned = '', joined = '', other = '') {
+    const response = await dataBase[this.model]
+      .find(dtn, returned)
+      .populate(joined, other)
+      .exec();
     return response;
   }
 
@@ -33,8 +44,21 @@ class Services {
   }
 
   async dropDate(id) {
-    const deletedDate = await dataBase[this.model].findByIdAndDelete(id);
-    return deletedDate;
+    return dataBase[this.model]
+      .findByIdAndDelete(id)
+      .exec();
+  }
+
+  async deleteOne(dtn) {
+    return dataBase[this.model]
+      .deleteOne(dtn)
+      .exec();
+  }
+
+  async deleteMany(dtn) {
+    return dataBase[this.model]
+      .deleteMany(dtn)
+      .exec();
   }
 }
 

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const linguagemSchema = mongoose.Schema({
+const linguagemSchema = new mongoose.Schema({
   id: { type: mongoose.Schema.Types.ObjectId },
   linguagem: {
     type: String,

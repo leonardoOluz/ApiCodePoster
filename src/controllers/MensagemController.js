@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable import/extensions */
 import Controller from './Controller.js';
 import MensagemService from '../service/MensagemService.js';
@@ -25,6 +26,16 @@ class MensagemController extends Controller {
     try {
       await this.mensagem.checkDateMessagemValidate(dtn);
       return res.status(200).json({ message: 'Mensagem salva com sucesso' });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async getAllMessagePoster(req, res, next) {
+    const { id_postagem } = req.query;
+    try {
+      const result = await this.mensagem.getAllMessagePoster({ id_postagem });
+      return res.status(200).json(result);
     } catch (error) {
       return next(error);
     }

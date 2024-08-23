@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 /* eslint-disable import/extensions */
 /* eslint-disable no-undef */
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
@@ -5,12 +6,17 @@ import express from 'express';
 import routes from './routes/index.js';
 import dbConnect from './config/dbConnect.js';
 import errorValidations from './middlewares/errorValidations.js';
+import cors from 'cors';
 
 const app = express();
+app.use(cors({
+  origin: 'http://localhost:3001', // Ajuste este valor conforme necessário
+}));
+
+routes(app);
 
 const conexao = await dbConnect();
 
-routes(app);
 app.use(errorValidations);
 
 conexao.on('error', async (error) => {

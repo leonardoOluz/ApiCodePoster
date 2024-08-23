@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const postagemSchema = mongoose.Schema({
+const postagemSchema = new mongoose.Schema({
   id: { type: mongoose.Schema.Types.ObjectId },
   id_usuario: {
     type: mongoose.Schema.Types.ObjectId,

@@ -5,6 +5,7 @@ import usuario from './usuariosRoutes.js';
 import postagem from './postagensRoutes.js';
 import mensagem from './mensagensRoutes.js';
 import auth from './authRoutes.js';
+import image from './imageRoutes.js';
 import checkToken from '../middlewares/checkToken.js';
 import errorNotFound404 from '../middlewares/errorNotFound404.js';
 
@@ -17,6 +18,7 @@ export default (app) => {
     linguagem,
     postagem,
     mensagem,
+    image,
     errorNotFound404,
   );
 };

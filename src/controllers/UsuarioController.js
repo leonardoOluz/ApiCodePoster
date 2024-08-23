@@ -20,6 +20,15 @@ class UsuarioController extends Controller {
     }
   }
 
+  async getAllUserPoster(req, res, next) {
+    try {
+      const result = await this.usuario.getAllUsersPosters();
+      return res.status(200).json(result);
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async getOneById(req, res, next) {
     const { id } = req.params;
     try {
@@ -40,6 +49,19 @@ class UsuarioController extends Controller {
     try {
       const result = await this.usuario.getOneForQuery({ nome });
       return res.status(200).json(result);
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async deleteUserImage(req, res, next) {
+    const { id } = req.params;
+    try {
+      const userImageDeleted = await this.usuario.deleteUserImage(id);
+      if (userImageDeleted) return res.status(201).json(userImageDeleted);
+      return next(
+        new ErrorIncorrectRequest('Os dados fornecido não foram encontrado ou foram excluidos!'),
+      );
     } catch (error) {
       return next(error);
     }
